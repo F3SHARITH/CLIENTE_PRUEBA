@@ -1,0 +1,103 @@
+/*
+configuracion general
+*/
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: 'segoe ui', sans-serif;
+}
+
+/*
+cnfiguraion contenedor prinsipal
+*/
+.login-container{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background: linear-gradient(
+        135deg,
+        #0f172a,
+        #1e293b,
+        #334155
+    );
+}
+
+/*
+    Login Card
+*/
+
+.login-card{
+    width: 400px;
+    background: white;
+    border-radius: 16px;
+    padding: 40px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .25);
+}
+
+/*
+    Logo
+*/
+.logo-section{
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.logo-section h1{
+    color: #0f172a;
+    margin-bottom: 10px;
+}
+
+.logo-section p{
+    color: #64748b;
+}
+
+/*
+Formulario
+*/
+
+.form-group{
+    margin-bottom: 20px;
+}
+
+.form-group label{
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.form-group input{
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color .3s;
+}
+
+.form-group input:focus{
+    outline: none;
+    border-color: #2563eb;
+}
+
+/*
+    Boton
+*/
+
+button{
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    background: #2563eb;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+button:hover{
+    background: #1d4ed8;
+}
