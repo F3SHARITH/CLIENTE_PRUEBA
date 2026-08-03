@@ -101,3 +101,25 @@ button{
 button:hover{
     background: #1d4ed8;
 }
+/*
+estilo boton de registro
+
+*/
+
+.register-button{
+    margin-top: 15px;
+    width: 100%;
+    padding: 14px;  
+    border: 2px solid #2563eb;
+    border-radius: 8px; 
+    background: white;
+    color: #2563eb;
+    font-size: 16px;
+    cursor: pointer;
+    transition: .3s;     
+}
+
+.register-button:hover{
+    background: #2563eb;
+    color: white;
+}

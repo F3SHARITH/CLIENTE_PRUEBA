@@ -1,0 +1,94 @@
+<div class="register-container">
+    <div class="register-card">
+        <div class="header">
+            <h1> Registro de Usuarios </h1>
+            <p> Complete el siguiente formulario </p>
+        </div>
+        <!-- Inicio del formulario -->
+         <form [formGroup]="registerForm" (ngSubmit)="registroUsuario()">
+            <div class="form-group">
+                <label for="nombre">Nombre: </label>
+                <input id="nombre" type="text" placeholder="Ingrese su nombre" formControlName="nombre">
+                <!-- Mensaje de Error -->
+                    @if (nombre?.touched && nombre?.invalid) {
+                        <small class="error"> 
+                            @if (nombre?.errors?.['required']) {
+                                El nombre es obligatorio.
+                            }
+                            @if (nombre?.errors?.['minlength']) {
+                                El nombre debe tener al menos 3 caracteres.
+                            }
+                        </small>
+                    }
+            </div>
+
+         <!-- Apellido -->
+         <div class="form-group">
+            <label for="apellido"> Apellido </label>
+            <input id="apellido" type="text" placeholder="Ingrese su apellido" formControlName="apellido">
+            @if (apellido?.touched && apellido?.invalid) {
+                <small class="error">
+                    @if (apellido?.errors?.['required']) {
+                        El apellido es obligatorio.
+                    }
+                    @if (apellido?.errors?.['minlength']) {
+                        El apellido debe tener al menos 3 caracteres.
+                    }
+                </small>
+            }
+         </div>
+         <!-- Correo -->
+            <div class="form-group">
+                <label for="correo"> Correo </label>
+                <input id="correo" type="email" placeholder="ejemplo@correo.com" formControlName="correo">
+                @if (correo?.touched && correo?.invalid) {
+                    <small class="error">
+                        @if (correo?.errors?.['required']) {
+                            El correo es obligatorio.
+                        }
+                        @if (correo?.errors?.['email']) {
+                            Ingrese un correo válido.
+                        }
+                    </small>
+                }
+            </div>
+            <!-- Contraseña -->
+            <div class="form-group">
+                <label for="password"> Contraseña </label>
+                <input id="password" type="password" placeholder="Ingrese su contraseña" formControlName="password">
+                @if (password?.touched && password?.invalid) {
+                    <small class="error">
+                        @if (password?.errors?.['required']) {
+                            La contraseña es obligatoria.
+                        }
+                        @if (password?.errors?.['minlength']) {
+                            La contraseña debe tener al menos 8 caracteres.
+                        }
+                        @if (password?.errors?.['pattern']) {
+                            La contraseña debe contener una mayúscula, una minúscula, número y un carácter especial.
+                        }
+                    </small>
+                } 
+            </div>
+            <!-- Confirmacion de contraseña -->
+            <div class="form-group">
+                <label for="confirmarPassword"> Confirmar Contraseña </label>
+                <input id="confirmarPassword" type="password" placeholder="Confirme su contraseña" formControlName="confirmarPassword">
+                @if (confirmarPassword?.touched && confirmarPassword?.invalid) {
+                    <small class="error">
+                        @if (confirmarPassword?.errors?.['required']) {
+                            Debe confirmar la contraseña.
+                        }
+                    </small>
+                }
+                <!-- Error de confirmación de contraseña -->
+                 @if (registerForm.errors?.['passwordsNoCoinciden'] && confirmarPassword?.touched) {
+                    Las contraseñas no coinciden.
+                }
+            </div>
+            <button type="submit" [disabled]="registerForm.invalid">
+                Registrarse
+            </button>            
+        </form>
+    </div>
+</div>

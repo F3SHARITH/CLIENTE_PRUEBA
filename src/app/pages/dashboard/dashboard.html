@@ -1,0 +1,123 @@
+<div class="dashboard-container">
+    <aside class="sidebar">
+        <div class class="logo">
+            <h2>SISTEMA ADSO</h2>
+        </div>
+        <nav>
+            <ul>
+                <li> 🛖inicio</li>
+                <li routerLink="/users">🤵usuarios</li>
+                <li> 🖐️roles</li>
+                <li> 💀reportes</li>
+                <li>🫆configuración</li>
+                <li> ❌cerrar sesión </li>
+            </ul>
+        </nav>
+    </aside>
+    <!--CONTENIDO PRINCIPAL DEL DASHBOARD-->
+    <main class="content">
+        <div class="header">
+            <div> 
+                <h1>DASHBOARD</h1>
+                <P>Panel Principal Del Sistema</P>
+            </div>
+
+            <div class="user-info">
+                <!--negrilla-->
+                <strong>{{usuario}}</strong>
+                <!--subrayar-->
+                <span>{{rol}}</span>
+                
+            </div>
+        </div>
+        <!--TARJETAS DE INFORMACIÓN-->
+        <div class="cards">
+            <div class="card">
+                <h3> Usuarios</h3>
+                <p>{{Estadisticas.Usuario}}</p>
+            </div>
+            <div class="card">
+                <h3>Roles</h3>
+                <P>{{Estadisticas.Roles}}</P>
+            </div>
+            <div class="card">
+                <h3>cursos</h3>
+                <p>{{Estadisticas.Cursos}}</p>
+            </div>
+        </div>
+        <!--grafica-->
+
+            <section class="workspace">
+                <h2> Actividad Mensual</h2>
+                <p>Representacion Grafica utilizando 
+                    unicamente HTML, CSS y angular
+                </p>
+
+                <div class="chart">
+                    @for (item of grafica; track item.mes) {
+                        <div class="bar-container">
+                            <div class="bar" [style.height.%]="item.valor">
+                            </div>
+                            <span>{{item.mes}}</span>
+                        </div>
+                    }
+                </div>
+            </section>
+            <!--tabla-->
+            <section class="workspace">
+                <h2>Ultimos Usuarios Registrados</h2>
+                <p> Total Registrados:
+                    <strong>{{obtenerToTALUsuarios()}}</strong>
+                </p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>NOMBRE</th>
+                            <th>CORREO</th>
+                            <th>ROL</th>
+                            <th>ESTADO</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (usuario of usuarios; track usuario.id) {
+                            <tr>
+                                <td>
+                                    {{usuario.id}}
+                                </td>
+                                <td>
+                                    {{usuario.nombre}}
+                                </td>
+                                 <td>
+                                    {{usuario.correo}}
+                                </td>
+                                 <td>
+                                    {{usuario.rol}}
+                                </td>
+                                 <td>
+                                    {{usuario.estado}}
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </section>
+        <section class="workspace">
+            <h2>Area De Trabajo</h2>
+            <P>
+                Desde este panel podran administrar
+                 la información del sistema,
+                gestionar usuarios, consultar
+                reportes y acceder a las diferentes
+                funcionalidades disponibles
+            </P>
+            <button
+                type="button"
+                (click)="mostrarMensaje()"
+                >
+                Mostrar mensaje
+            </button>
+        </section>
+    </main>
+</div>
