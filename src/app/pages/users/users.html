@@ -1,33 +1,32 @@
-<div class="user-container">
+<div class="users-container">
     <div class="page-wrapper">
         <section class="page-header">
             <div class="header-info">
                 <div class="header-icon">
-                    🤦💀🫆
+                    🤦‍♂️💀🫆
                 </div>
                 <div>
-                    <h1>Gestion de Usuarios</h1>
-                    <P>
-                        Administrador De Usuarios Registrados
-                        En El Sistema
-                    </P>
+                    <h1>Gestión de Usuarios</h1>
+                    <p>
+                        Administración de usuarios registrados en el sistema
+                    </p>
                 </div>
             </div>
         </section>
         <div class="content">
             <section class="form-panel">
                 <div class="panel-title">
-                    <span>
-                        📝
-                    </span>
-                    <h2> Registrar Usuario</h2>
+                    <span>➕</span>
+                    <h2>Registrar usuario</h2>
                 </div>
-                <div *ngIf="mensaje"
+                
+                <div
+                    *ngIf="mensaje"
                     class="alert"
                     [class.success]="tipoMensaje==='success'"
-                    [class.error]="tipoMensaje ==='error'">
-                   {{mensaje}}
-                </div>
+                    [class.error]="tipoMensaje==='error'">
+                    {{mensaje}}    
+                </div> 
 
                 <div class="form-group">
                     <label>Nombre</label>
@@ -55,128 +54,116 @@
                         Usuario Activo
                     </label>
                 </div>
-
                 <div class="buttons">
-                    <button class="btn-primary" (click)="registrarUsuario()">
-                        {{idEditar==null?'Registro':'Actualizar'}}
-                    </button>
-                    <button class="btn-secundary" (click)="limpiarFormulario()">Limpiar</button>
+                    <button class="btn-primary" (click)="registrarUsuario()">{{idEditar==null?'Registro':'Actualizar'}}</button>
+                    <button class="btn-secondary" (click)="limpiarFormulario()">Limpiar</button>
+                    <button class="btn-secundary" (click)="reiniciarDatos()">Restaurar datos</button>
                 </div>
-                </section>
-                <section class="table-panel">
-                    <div class="panel-title">
-                        <span>📓</span>
-                        <h2>Usuarios Registrados</h2>
-                        <p class="table-info">
-                            TOTAL DE USUARIOS:
-                             <strong>{{obtenerTotalUsuarios()}}</strong>
-                        </p>
-                    </div>
-                    <div class="toolbar">
-                        <input
+            </section>
+
+            <section class="table-panel">
+                <div class="panel-title">
+                    <span>📝</span>
+                    <h2>Usuario Registrados</h2>
+                    <p class="table-info">
+                        Total de usuarios: <strong>{{obtenerTotalUsuarios()}}</strong>
+                    </p>
+                </div>
+                <div class="toolbar">
+                    <input
                         type="text"
-                        placeholder="Buscar ususario..."
+                        placeholder="Buscar usuario..."
                         [(ngModel)]="textoBusqueda"
                         (input)="buscarUsuarios()">
                     <select 
-                    [(ngModel)]="filtroRol"
-                    (change)="buscarUsuarios()">
-                    <option value="">todos los roles</option>
-                    <option value="Administrador">Administrador</option>
-                    <option value="Instructor">Instructor</option>
-                    <option value="Aprendiz">Aprendiz</option>
+                        [(ngModel)]="filtroRol"
+                        (change)="buscarUsuarios()">
+                        <option value="">Todos los roles</option>
+                        <option value="Administrador">Administrador</option>
+                        <option value="Instructor">Instructor</option>
+                        <option value="Aprendiz">Aprendiz</option>
                     </select>
                 </div>
                 <p class="table-info">
-                    Usuarios Encontrados: 
-                    <strong>{{usuariosFiltrados.length}}</strong>
+                    Usuarios Encontrados: <strong>{{usuariosFiltrados.length}}</strong>
                 </p>
-                    <div class="table-responsive">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th class="sortable" (click)="ordenar('id')">
-                                        Id {{obtenerIconoOrden('id')}}
-                                    </th>
-                                    <th class="sortable" (click)="ordenar('nombre')">
-                                        Nombre {{obtenerIconoOrden('nombre')}}
-                                    </th>
-                                    <th class="sortable" (click)="ordenar('apellido')">
-                                        Apellido {{obtenerIconoOrden('apellido')}}
-                                    </th>
-                                    <th class="sortable" (click)="ordenar('correo')">
-                                        Correo {{obtenerIconoOrden('correo')}}
-                                    </th>
-                                    <th class="sortable" (click)="ordenar('rol')">
-                                        Rol {{obtenerIconoOrden('rol')}}
-                                    </th>
-                                    <th class="sortable" (click)="ordenar('estado')">
-                                        Estado {{obtenerIconoOrden('estado')}}
-                                    </th>
-                                    <th>
-                                        Acciones 
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let usuario of usuarioPaginados">
-                                    <td>{{usuario.id}}</td>
-                                    <td>{{usuario.nombre}}</td>
-                                    <td>{{usuario.apellido}}</td>
-                                    <td>{{usuario.correo}}</td>
-                                    <td>{{usuario.rol}}</td>
-                                    <td>
-                                        <span class="status-badge" [class.active]="usuario.estado"
-                                            [class.inactive]="!usuario.estado">
-                                            {{usuario.estado?'Activo':'Inactivo'}}
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <button 
-                                        class="btn-edit" 
-                                        (click)="editarUsuario(usuario)">
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="sortable" (click)="ordenar('id')">
+                                    ID {{obtenerIconoOrden('id')}}
+                                </th>
+                                <th class="sortable" (click)="ordenar('nombre')">
+                                    Nombre {{obtenerIconoOrden('nombre')}}
+                                </th>
+                                <th>Apellido</th>
+                                <th>Correo</th>
+                                <th class="sortable" (click)="ordenar('rol')">
+                                    Rol {{obtenerIconoOrden('rol')}}
+                                </th>
+                                <th class="sortable" (click)="ordenar('estado')">
+                                    Estado {{obtenerIconoOrden('estado')}}
+                                </th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let usuario of usuariosPaginados">
+                                <td>{{usuario.id}}</td>
+                                <td>{{usuario.nombre}}</td>
+                                <td>{{usuario.apellido}}</td>
+                                <td>{{usuario.correo}}</td>
+                                <td>{{usuario.rol}}</td>
+                                <td>
+                                    <span class="status-badge"
+                                        [class.active]="usuario.estado"
+                                        [class.inactive]="!usuario.estado"> 
+                                        
+                                        {{usuario.estado?'Activo':'Inactivo'}}
+                                    </span>
+                                </td>
+                                <td>
+                                    <button class="btn-edit" (click)="editarUsuario(usuario)">
                                         ✏️
-                                        </button>
-                                        <button class="btn-delete" 
-                                        (click)="abrirModalElimanar(usuario)">
-                                        🗑️
-                                        </button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <div class="pagination-info">
-                            mostrando {{usuarioPaginados.length}} de
-                            {{usuariosFiltrados.length}} Usuarios
-                        </div>
+                                    </button>
+                                    <button class="btn-delete" (click)="abriModalEliminar(usuario)">
+                                        🪰
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="pagination-info">
+                        Mostrando {{usuariosPaginados.length}} de {{usuariosFiltrados.length}} usuarios
+                    </div>
 
-                        <div class="pagination">
-                            <button (click)="anteriorPagina()"
-                             [disabled]="paginaActual==1">
-                             ⬅️anterior
-                            </button>
-                            <button *ngFor= "let pagina of obtenerPaginas()"
+                    <div class="pagination">
+                        <button (click)="anteriorPagina()" [disabled]="paginaActual==1">
+                            ⬅️Anterior
+                        </button>
+                        <button *ngFor=" let pagina of obtenerPaginas()"
                         (click)= "cambiarPagina(pagina)"
                         [class.active-page]="pagina==paginaActual">
                         {{pagina}}
-                    </button>
-                    <button (click)="siguientePagina()"
-                    [disabled]="paginaActual==obtenerTotalPaginas()">
-                    siguiente ➡️
-                    </button>
-                        </div>
+                        </button>
+                        <button (click)="siguientePagina()"
+                                [disabled]="paginaActual==obtenerTotalPaginas()">
+                                Siguiente ➡️
+                        </button>
                     </div>
-                </section>
-            
-
-            <footer class="pge-footer">
-                SISTEMA ADSO - PANELES DE ADMINISTRACIÓN
-            </footer>
+                    
+                </div>
+            </section>
         </div>
+
+        <footer class="page-footer">
+            Sistema ADSO - Panels de Administración
+        </footer>
     </div>
 </div>
 
-<!--Modal eliminar usuario-->
+<!--Modal elminar usuario-->
 <div class="modal-overlay" *ngIf="mostrarModalEliminar">
     <div class="modal">
         <div class="modal-header">
@@ -184,6 +171,7 @@
         </div>
         <div class="modal-body">
             <p>¿Desea eliminar el siguiente usuario?</p>
+
             <div class="user-info-modal">
                 <strong>
                     {{usuarioSeleccionado?.nombre}}
@@ -194,13 +182,13 @@
                 </span>
             </div>
             <p class="warning">
-                esta accion no se puede deshacer
+                Esta acción no se puede deshacer.
             </p>
         </div>
 
         <div class="modal-footer">
-            <button class="btn-cancel" (click)="cerrarModal()">cancelar</button>
-            <button class="btn-danger"(click)="confirmarEliminar()">Eliminar</button>
+            <button class="btn-cancel" (click)="cerrarModal()">Cancelar</button>
+            <button class="btn-danger" (click)="confirmarEliminar()"> Eliminar</button>
         </div>
     </div>
 </div>

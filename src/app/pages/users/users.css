@@ -404,7 +404,7 @@ tbody tr:hover{
     background: #eff6ff;
     border-left: 5px solid #313b51;
     padding: 15px;
-    border-radius: 8px;
+    border-radius: 200px;
     display: flex;
     flex-direction: column;
     gap: 6px;

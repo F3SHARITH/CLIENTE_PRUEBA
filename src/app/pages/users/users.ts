@@ -1,15 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { NgForOf, NgIf } from '@angular/common';
+import { NgForOf, NgIf } from "@angular/common";
+import { StringToken } from '@angular/compiler';
 
-interface usuario {
-  id: number;
+interface Usuario{
+  id:number;
   nombre: string;
   apellido: string;
   correo: string;
   rol: string;
   estado: boolean;
 }
+
+const STORAGE_KEY ='usuariosSistemas';
 
 @Component({
   selector: 'app-users',
@@ -18,248 +21,248 @@ interface usuario {
   styleUrl: './users.css',
 })
 export class UsersComponent implements OnInit {
-  id: Number = 0;
-  nombre: string = '';
-  apellido: string = '';
-  correo: string = '';
-  rol: string = 'Aprendiz';
-  estado: boolean = true;
 
-  /*listas de usuarios, un arreglo de usuario*/
+  id:number=0;
+  nombre:string='';
+  apellido:string='';
+  correo:string='';
+  rol:string='Aprendiz';
+  estado:boolean=true;
+  /**Listas de usuarios, un arreglo de usuario */
 
-  usuarios: usuario[] = [];
+  usuarios:Usuario[]=[];
   //lista filtrada
-  usuariosFiltrados: usuario[] = [];
-  textoBusqueda: string = '';
-  //IMPLEMENTACION DEL FILTRO
-  filtroRol: string = '';
-  // Id en edicion
-  idEditar: number | null = null;
+  usuariosFiltrados:Usuario[]=[];
+  //input de busqueda
+  textoBusqueda:string ='';
+  //implementacion del filtro
+  filtroRol: String= '';
+  //Id en edición
+  idEditar:number | null=null;
 
-
-  //pagina actual 
+  //pagina actual
   paginaActual: number=1;
 
-  // cantidad de registros por pagina 
-  registrosPorPagina: number=2;
+  //cantidad de registro por pagina
+  registrosPorPagina:number=10;
 
-  //lista que realmente muestra la tabla realmente paginada
-  usuarioPaginados:usuario[]=[];
+  //Lista que realmente muestra la tabla osea paginada
+  usuariosPaginados:Usuario[]=[];
 
-  //columna actualmente ordenada
+  // columnba actualemte ordenada
   columnaOrden: string='';
 
-  //direccion de orden 
+  // direcion de orden
   //true -> ascendente
   //false -> descendente
 
-  ordenAscendente: boolean=true;
+  ordenAscendente: boolean= true;
 
 
+  mensaje:string=''
+  tipoMensaje: 'success' | 'error'|''='';
 
-  mensaje: string = ''
-  tipoMensaje: 'success' | 'error' | '' = '';
+  //bandera para saber si se esta editando un usurio
 
-  //bandera para saber si se esta editando un usuario
-  modoEdicion: boolean = false;
-  //MOTRAR O NO MOSTRAR EL MODAL
-  mostarModalEliminar:boolean=false;
-  //USUARIO a ELIMINAR 
-  usuarioSeleccionado: usuario | null=null;
+  modoEdicion: boolean= false;
+  //mostrar o no mostral el modal
+  mostrarModalEliminar:boolean=false;
+
+  //usuario a eliminar
+
+  usuarioSeleccionado: Usuario|null=null;
+
+
+  
+
+
 
   ngOnInit(): void {
-    this.cargarDatosIniciales();
-    this.usuariosFiltrados = [...this.usuarios]
-    this.actualizarPaginacion();
 
+
+    this.cargarUsuarios();
+    this.actualizarPaginacion();
+    
   }
 
-  cargarDatosIniciales(): void {
-    this.usuarios = [
+  cargarDatosInciales():void{
+    this.usuarios=[
       {
-        id: 1,
-        nombre: 'carlos',
-        apellido: 'machado',
-        correo: 'carlos@gmail.com',
+        id:1,
+        nombre:'Carlos',
+        apellido:'Machado',
+        correo:'carlos@sena.edu.co',
         rol: 'Administrador',
         estado: true
       },
       {
-        id: 2,
-        nombre: 'angela',
-        apellido: 'novoa',
-        correo: 'angela@gmail.com',
-        rol: 'Instructor',
+        id:2,
+        nombre:'Angela ',
+        apellido:'Novoa',
+        correo:'maria@sena.edu.co',
+        rol:'Instructor',
         estado: true
       },
       {
-        id: 3,
-        nombre: 'jose',
-        apellido: 'cantillo',
-        correo: 'jose@gmail.com',
-        rol: 'Aprendiz',
-        estado: true
+        id:3,
+        nombre:'Jose',
+        apellido:'Cantillo',
+        correo:'juan@sena.edu.co',
+        rol:'Aprendiz',
+        estado:false
       }
     ]
   }
 
-  validarCorreo(correo: string): boolean {
-    const expresion = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    return expresion.test(correo.trim());
+  validarCorreo(correo: string): boolean{
+    const expresion= /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+[a-zA]{2,}$/;
+    return expresion.test(correo);
   }
 
-  correoExiste(correo: string, idUsuario: number | null = null): boolean {
-    return this.usuarios.some
-      (usuario => usuario.correo.toLowerCase() 
-      === correo.toLowerCase() && 
-      usuario.id !== idUsuario)
+  correoExiste(correo:string, idUsuario: number | null=null):boolean{
+    return this.usuarios.some(usuario=>usuario.correo.toLowerCase()=== correo.toLowerCase()&&
+    usuario.id!== idUsuario);
   }
 
+  limpiarFormulario():void{
 
-  limpiarFormulario(): void {
-    const respuesta = confirm('¿Dese limpiar el formulario?');
-    if (!respuesta) {
+    const respuesta = confirm('¿Desea Limpiar el formulario');
+
+    if (!respuesta){
       return
-    } 3
-    this.id = 0;
-    this.nombre = '';
-    this.apellido = '';
-    this.correo = '';
-    this.rol = 'Aprendiz';
-    this.estado = true;
-    this.mensaje = '';
+    }
+    this.id=0;
+    this.nombre='';
+    this.apellido='';
+    this.correo='';
+    this.rol='Aprendiz';
+    this.estado=true;
+    this.mensaje='';
   }
 
-  registrarUsuario(): void {
+  registrarUsuario():void{
 
-    //validacion de campos
-    if (this.nombre.trim() === '' ||
-      this.apellido.trim() === '' ||
-      this.correo.trim() === ''
-    ) {
-      this.tipoMensaje = 'error';
-      this.mensaje = 'todos los campos son obligatorios';
+
+    //Validacion de campos
+    if( this.nombre.trim()===''|| this.apellido.trim()===''||this.correo.trim()===''){
+      this.tipoMensaje= 'error';
+      this.mensaje= 'Todos los campos son obligatorios';
       return
     }
 
-
-    //validacion correo 
-    if (!this.validarCorreo(this.correo)) {
-      this.tipoMensaje = 'error';
-      this.mensaje = 'el formato del correo es incorrecto.';
+    //validacion correo
+    if(!this.validarCorreo(this.correo)){
+      this.tipoMensaje='error';
+      this.mensaje='El formato del correo es incorrecto.';
       return
     }
 
-    //validar duplicado
-    if (this.correoExiste(this.correo, this.idEditar)) {
-      this.tipoMensaje = 'error';
-      this.mensaje = 'El correo ya se encuentra registrado.';
+    // validar duplicado
+    if(this.correoExiste(this.correo, this.idEditar)){
+      this.tipoMensaje='error';
+      this.mensaje='El correo ya se encuentra registrado.';
       return
     }
 
+    if(this.idEditar!=null){
+      const usuariobuscado= this.usuarios.find(usuario=>usuario.id==this.idEditar);
 
-            if (this.idEditar != null) {
-      const usuariobuscado = this.usuarios.find(u => u.id == this.idEditar);
-
-      if (usuariobuscado) {
-        usuariobuscado.nombre = this.nombre;
-        usuariobuscado.apellido = this.apellido;
-        usuariobuscado.correo = this.correo;
-        usuariobuscado.rol = this.rol;
-        usuariobuscado.estado = this.estado;
+      if(usuariobuscado){
+        usuariobuscado.nombre=this.nombre;
+        usuariobuscado.apellido=this.apellido;
+        usuariobuscado.correo=this.correo;
+        usuariobuscado.rol=this.rol;
+        usuariobuscado.estado=this.estado;
       }
-      this.idEditar = null;
+      this.idEditar=null;
+      this.guardarUsuarios();
       this.buscarUsuarios();
-      alert('usuario actualizado')
-      this.limpiarFormulario();
+      alert('Usuario Actualizado')
+      this.limpiarFormularioAutomatico();
       return
     }
 
-    /**se construye un nuevo
-     *  objeto usuario utilizando
-     *  la informacion ingresada 
-     * en el formulario */
 
-    const nuevoUsuario: usuario = {
-      id: this.usuarios.length + 1,
-      nombre: this.nombre,
-      apellido: this.apellido,
-      correo: this.correo,
-      rol: this.rol,
-      estado: this.estado
-    };
-    /**agrega el nuevo objeto
-     * al arreglo
+
+    /**Se construye un nuevo objeo usuario utilizando la informacion ingresada 
+     * en el formulario
      */
-
+    const nuevoUsuario:Usuario={
+      id:this.usuarios.length+1,
+      nombre:this.nombre,
+      apellido:this.apellido,
+      correo:this.correo,
+      rol:this.rol,
+      estado:this.estado
+    };
+    //Agrega el nuevo objeto al arreglo
     this.usuarios.push(nuevoUsuario);
+    this.guardarUsuarios();
     this.buscarUsuarios();
-    this.tipoMensaje = 'success';
-    this.mensaje = 'usuario registrado correctamente.';
-
+    this.actualizarPaginacion();
+    this.tipoMensaje='success';
+    this.mensaje='Usuario registrado correctamente.';
+    
     this.limpiarFormularioAutomatico();
-
   }
 
-  limpiarFormularioAutomatico(): void {
-    this.id = 0;
-    this.nombre = '';
-    this.apellido = '';
-    this.correo = '';
-    this.rol = '';
-    this.estado = true;
-  }
-  obtenerTotalUsuarios(): number {
-    return this, this.usuarios, length;
+  limpiarFormularioAutomatico():void{
+
+    this.id=0;
+    this.nombre='';
+    this.apellido='';
+    this.correo='';
+    this.rol='Aprendiz';
+    this.estado=true;
   }
 
-  buscarUsuarios(): void {
-    this.usuariosFiltrados = this.usuarios.filter(usuario => {
-      const coincideTexto =
-        usuario.nombre.toLowerCase().includes(this.textoBusqueda.toLowerCase()) ||
-        usuario.apellido.toLowerCase().includes(this.textoBusqueda.toLowerCase()) ||
-        usuario.correo.toLowerCase().includes(this.textoBusqueda.toLowerCase());
+  obtenerTotalUsuarios():number{
+    return this.usuarios.length;
+  }
 
-      const coincideRol =
-        this.filtroRol === '' || usuario.rol == this.filtroRol;
+  buscarUsuarios():void{
+    this.usuariosFiltrados =this.usuarios.filter(usuario=>{
+      const coincideTexto=
+      usuario.nombre.toLowerCase().includes(this.textoBusqueda.toLowerCase())||
+      usuario.apellido.toLowerCase().includes(this.textoBusqueda.toLowerCase())||
+      usuario.correo.toLowerCase().includes(this.textoBusqueda.toLowerCase());
 
-        this.paginaActual=1
+      const coincideRol=
+      this.filtroRol==''|| usuario.rol==this.filtroRol;
 
-        if(this.columnaOrden!== ''){
-          this.ordenar(this.columnaOrden);
-         
-        }
-        this.actualizarPaginacion();
+      this.paginaActual=1
+      if(this.columnaOrden!== ''){
+        this.ordenar(this.columnaOrden);
+      }
+      this.actualizarPaginacion();
 
       return coincideTexto && coincideRol;
     });
   }
 
-  editarUsuario(usuario: usuario): void {
-    this.idEditar = usuario.id;
-    this.nombre = usuario.nombre;
-    this.apellido = usuario.apellido;
-    this.correo = usuario.correo;
+  editarUsuario(usuario:Usuario):void{
+    this.idEditar=usuario.id;
+    this.nombre=usuario.nombre;
+    this.apellido=usuario.apellido;
+    this.correo= usuario.correo;
     this.rol = usuario.rol;
-    this.estado = usuario.estado;
+    this.estado= usuario.estado;
 
   }
 
 
   actualizarPaginacion():void{
-    const inicio=(this.paginaActual-1)*this.registrosPorPagina;
+    const inicio= (this.paginaActual-1)*this.registrosPorPagina;
     const fin= inicio + this.registrosPorPagina;
 
-    this.usuarioPaginados=this.usuariosFiltrados.slice(inicio,fin);
-
+    this.usuariosPaginados=this.usuariosFiltrados.slice(inicio,fin);
   }
-
   obtenerTotalPaginas():number{
     return Math.ceil(this.usuariosFiltrados.length/this.registrosPorPagina)
   }
 
-  cambiarPagina(pagina:number):void{
-    if(pagina<1 || pagina>this.obtenerTotalPaginas()){
+  cambiarPagina(pagina: number): void{
+    if( pagina<1 || pagina>this.obtenerTotalPaginas()){
       return
     }
     this.paginaActual=pagina;
@@ -271,48 +274,39 @@ export class UsersComponent implements OnInit {
   anteriorPagina():void{
     this.cambiarPagina(this.paginaActual-1)
   }
-  obtenerPaginas(): number[]{
+  obtenerPaginas():number[]{
     return Array.from({
       length: this.obtenerTotalPaginas()
-    },(_,indice)=> indice+1);
+    }, (_,indice)=> indice+1);
   }
 
-
   ordenar(columna: string):void{
-    if(this.columnaOrden===columna){
+    if (this.columnaOrden===columna){
       this.ordenAscendente=!this.ordenAscendente;
     }else{
       this.columnaOrden=columna;
       this.ordenAscendente=true;
     }
 
-    this.usuariosFiltrados.sort((a:usuario,b:usuario)=>{
+    this.usuariosFiltrados.sort((a:Usuario,b:Usuario)=>{
       let valorA:any;
       let valorB:any;
       switch(columna){
         case 'id':
-        valorA= a.id;
-        valorB= b.id;
-        break;
+          valorA= a.id;
+          valorB= b.id;
+          break;
         case 'nombre':
           valorA= a.nombre.toLowerCase();
           valorB= b.nombre.toLowerCase();
-          break;
-        case 'apellido':
-          valorA= a.apellido.toLowerCase();
-          valorB= b.apellido.toLowerCase();
-          break;
-        case 'correo':
-          valorA= a.correo.toLowerCase();
-          valorB= b.correo.toLowerCase();
-          break;
+          break; 
         case 'rol':
-          valorA=a.rol.toLowerCase();
-          valorB=b.rol.toLowerCase();
+          valorA= a.rol.toLowerCase();
+          valorB= b.rol.toLowerCase();
           break;
         case 'estado':
-          valorA=a.estado? 1:0;
-          valorB=b.estado? 1:0;
+          valorA = a.estado ? 1:0;
+          valorB= b.estado? 1:0;
           break;
         default:
           return 0;
@@ -320,28 +314,30 @@ export class UsersComponent implements OnInit {
       if (valorA<valorB){
         return this.ordenAscendente? -1:1;
       }
-      if (valorA>valorB){
-        return this.ordenAscendente? 1:-1
+      if(valorA>valorB){
+        return this.ordenAscendente? 1:-1;
       }
-      return 0; 
+      return 0;
     });
 
     this.actualizarPaginacion();
-  }
-obtenerIconoOrden(columna:string):string{
-    if(this.columnaOrden!==columna){
-      return '↕';
-    }
-    return this.ordenAscendente ? '↑' : '↓';
+
   }
 
-  abrirModalElimanar(usuario:usuario): void{
+  obtenerIconoOrden(columna:string): string{
+    if (this.columnaOrden!== columna){
+      return '↕'
+    }
+    return this.ordenAscendente? '↑': '↓';
+  }
+
+  abriModalEliminar(usuario:Usuario):void{
     this.usuarioSeleccionado=usuario;
-    this.mostarModalEliminar=true;
+    this.mostrarModalEliminar=true;
   }
 
   cerrarModal():void{
-    this.mostarModalEliminar=false;
+    this.mostrarModalEliminar=false;
     this.usuarioSeleccionado=null;
   }
 
@@ -349,17 +345,43 @@ obtenerIconoOrden(columna:string):string{
     if(!this.usuarioSeleccionado){
       return;
     }
-    this.usuarios=this.usuarios.filter
-    (usuario=>usuario.id!==this.usuarioSeleccionado!.id);
-    //actualiza busqueda, filtros, el ordenamiento y la paginación
+
+    this.usuarios=this.usuarios.filter(usuario=>usuario.id!==this.usuarioSeleccionado!.id);
+    // actualiza busqueda, filtros, el oredenamiento y la paginacion 
+    this.guardarUsuarios();
     this.buscarUsuarios();
+    this.actualizarPaginacion();
 
-    //mensaje exito
-
+    //Mensaje de exitos
     this.tipoMensaje='success';
-    this.mensaje='usuario eliminado correctamente';
+    this.mensaje= 'Usuario eliminado correctamente';
 
-    //cerrar modal
+    //cerrar el modal
     this.cerrarModal();
-   }
+  }
+
+  guardarUsuarios():void{
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(this.usuarios))
+  }
+  
+  cargarUsuarios():void{
+    const datos=localStorage.getItem(STORAGE_KEY)
+    if(datos){
+      this.usuarios=JSON.parse(datos);
+    }else{
+      this.cargarDatosInciales();
+      this.guardarUsuarios();
+    }
+    this.usuariosFiltrados=[...this.usuarios];
+  }
+
+  reiniciarDatos():void{
+    const respuesta= confirm('desea resturar los usuarios iniciales')
+    if( !respuesta){
+      return
+    }
+    localStorage.removeItem(STORAGE_KEY);
+    this.cargarUsuarios();
+    this.buscarUsuarios();
+  }
 }
