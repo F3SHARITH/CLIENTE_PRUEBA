@@ -138,7 +138,7 @@
                                         ✏️
                                         </button>
                                         <button class="btn-delete" 
-                                        (click)="eliminarUsuario(usuario.id)">
+                                        (click)="abrirModalElimanar(usuario)">
                                         🗑️
                                         </button>
                                     </td>
@@ -172,6 +172,35 @@
             <footer class="pge-footer">
                 SISTEMA ADSO - PANELES DE ADMINISTRACIÓN
             </footer>
+        </div>
+    </div>
+</div>
+
+<!--Modal eliminar usuario-->
+<div class="modal-overlay" *ngIf="mostrarModalEliminar">
+    <div class="modal">
+        <div class="modal-header">
+            <h2>Confirmar eliminación</h2>
+        </div>
+        <div class="modal-body">
+            <p>¿Desea eliminar el siguiente usuario?</p>
+            <div class="user-info-modal">
+                <strong>
+                    {{usuarioSeleccionado?.nombre}}
+                    {{usuarioSeleccionado?.apellido}}
+                </strong>
+                <span>
+                    {{usuarioSeleccionado?.correo}}
+                </span>
+            </div>
+            <p class="warning">
+                esta accion no se puede deshacer
+            </p>
+        </div>
+
+        <div class="modal-footer">
+            <button class="btn-cancel" (click)="cerrarModal()">cancelar</button>
+            <button class="btn-danger"(click)="confirmarEliminar()">Eliminar</button>
         </div>
     </div>
 </div>

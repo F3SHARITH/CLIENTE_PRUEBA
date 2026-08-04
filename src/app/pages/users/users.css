@@ -366,6 +366,109 @@ tbody tr:hover{
     transform: scale(.98);
 }
 
+.modal-overlay{
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, .55);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    animation: fadeBackground .25s;
+}
+
+.modal{
+    width: 450px;
+    background: white;
+    border-radius: 18x;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, .35);
+    animation: modalShow .3s ease;
+}
+
+.modal-header{
+    background: #0f172a;
+    color: white;
+    padding: 20px;
+}
+
+.modal-body{
+    padding: 30px;
+}
+
+.modal-body p{
+    margin-bottom: 18px;
+}
+
+.user-info-modal{
+    background: #eff6ff;
+    border-left: 5px solid #313b51;
+    padding: 15px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 20px;
+
+}
+
+.warning{
+    color: #dc2626;
+    font-weight: 600;
+}
+
+.modal-footer{
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    padding: 20px;
+    background: #f8fafc;
+
+}
+
+.btn-cancel{
+    background: #cbd5e1;
+    color: #0f172a;
+}
+.btn-cancel:hover{
+    background: #94a3b8;
+
+}
+
+.btn-danger{
+    background: #dc2626;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+
+}
+
+.btn-danger:hover{
+    background: #b91c1c;
+}
+
+@keyframes modalshow{
+    from{
+        transform: translateY(-20px) scale(.95);
+        opacity: 0;
+    }
+    to{
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes fadebackground{
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}
+
 @keyframes fadeIn {
     from{
         opacity: 0;
