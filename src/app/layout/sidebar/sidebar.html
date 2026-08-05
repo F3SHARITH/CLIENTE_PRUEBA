@@ -1,1 +1,30 @@
-<p>sidebar works!</p>
+<aside class="sidebar">
+    <section class="sidebar-logo">
+        <div class="logo-circle">
+            ADSO
+        </div>
+        <h2>
+            Menu
+        </h2>
+    </section>
+    <nav class="menu">
+        @for(item of menuVisible; track item.ruta){
+            <a [routerLink]="item.ruta" routerLinkActive="active">
+                <span class="icon">
+                    {{item.icono}}
+                </span>
+                <span>
+                    {{item.nombre}}
+                </span>
+            </a>
+        }
+    </nav>
+    <section class="sidebar-footer">
+        <small>
+            Sistema ADSO
+        </small>
+        <small>
+            Version 1.0.0 
+        </small>
+    </section>
+</aside>
