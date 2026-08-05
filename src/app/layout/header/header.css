@@ -1,0 +1,164 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+
+
+
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background: linear-gradient(90deg, #0f172a, #172554);
+    color: white;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, .25);
+    
+
+}
+
+.system{
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.logo{
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 18px;
+    letter-spacing: .5px;
+    flex-shrink: 0;
+    box-shadow: 0 5px 15px rgba(37, 99, 235, .35);
+}
+
+.system-text{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.system-text h1{
+    font-size: 28px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 4px;
+
+}
+
+.system-text span{
+    color: #cbd5e1;
+    font-size: 14px;
+}
+
+.user{
+    display: flex;
+    align-items: center;
+    gap: 25px;
+
+}
+
+.user-data{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+
+}
+
+.user-data h3{
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 3px;
+
+}
+
+
+
+.user-data span{
+    color: #cbd5e1;
+    font-size: 14px;
+    margin-bottom: 8px;
+
+}
+
+.user-data small{
+    color: #94a3b8;
+    font-size: 13px;
+    margin-top: 2px;
+}
+
+.logout{
+    padding: 12px 24px;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    background: #dc2626;
+    color: white;
+    cursor: pointer;
+    transition: .3s;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.logout:hover{
+    background: #b91c1c;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(220, 38, 38, .35);
+}
+
+.logo:hover{
+    transform: rotate(-5deg) scale(1.05);
+    transition: .3s;
+}
+
+@media(max-width:768px){
+    .header{
+        flex-direction: column;
+        height: auto;
+        gap: 20px;
+        align-items: flex-start;
+    }
+    .sistem{
+        width: 100%;
+    }
+    .user{
+        width: 100%;
+        justify-content: space-between;
+    }
+}
+
+@media(max-width:650px){
+    .header{
+        padding: 20px;
+         
+    }
+
+    .sistem{
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .user{
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .user-data{
+        align-items: flex-start;
+
+    }
+
+    .logout{
+        width: 100%;
+    }
+}

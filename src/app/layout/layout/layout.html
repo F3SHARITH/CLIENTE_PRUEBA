@@ -1,22 +1,20 @@
-<div class="layut-container">
+<div class="layout-container">
     <header class="layout-header">
-        <!--posterior mente s carga el conponente header componet-->
-        header
+        <!-- Se carga el componente HEADER. -->
+        <app-header></app-header>
     </header>
     <main class="layout-main">
         <aside class="layout-sidebar">
-            asidebar
+            <!-- Posteriormente se carga el componente sidebar component -->
+            Sidebar
         </aside>
-        <!--contenido dinamico-->
         <section class="layout-content">
-
-            <!--aqui va los conponentes de dashboart, usuario, roles, etec ..-->
-
+            <!-- Contenido dinámico. Es decir, que el contenido cambia entre Dashboard, Usuarios, Roles, etc. -->
             Router Outlet
         </section>
     </main>
     <footer class="layout-footer">
-        <!--conponente de footer-->
-        footer
+        <!-- Componente de footer. -->
+        Footer
     </footer>
 </div>

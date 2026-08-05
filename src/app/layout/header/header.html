@@ -1,1 +1,32 @@
-<p>header works!</p>
+<header class="header">
+<section class="system">
+    <div class="logo">
+        ADSO
+    </div>
+    <div class="system-text">
+        <h1>{{nombreSistema}}</h1>
+        <span>
+            {{descripcionSistema}}
+        </span>
+    </div>
+</section>
+<section class="user">
+    <div class="user-data">
+        <h3>
+            {{usuario}}
+        </h3>
+        <span>
+            {{rol}}
+        </span>
+        <small>
+            📅 {{fechaActual()}}
+        </small>
+        <small>
+            🕑 {{horaActual()}}
+        </small>
+    </div>
+    <button class="logout" (click)="cerrarSesion()">
+        Cerrar Sesión
+    </button>
+</section>
+</header>
