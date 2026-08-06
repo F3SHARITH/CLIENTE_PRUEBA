@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 interface MenuItem{
@@ -16,10 +16,11 @@ interface MenuItem{
 })
 export class SidebarComponent {
   constructor(){
+    this.rolUsuario=localStorage.getItem('rol')??'Aprendiz';
     this.cargarMenu();
   }
 
-  rolUsuario:string='Administrador';
+  rolUsuario:string='';
   menuVisible: MenuItem[]=[];
   menu:MenuItem[]=[
     {
@@ -61,6 +62,8 @@ export class SidebarComponent {
     }
 
   ];
+
+
   private cargarMenu():void{
     this.menuVisible=this.menu.filter
     (opcion=>opcion.roles.includes(this.rolUsuario));

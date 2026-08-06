@@ -1,0 +1,68 @@
+{
+  // ====== RENDIMIENTO: Servidor de lenguaje TypeScript ======
+  // Usa el TypeScript del proyecto (no el embebido de VS Code) para máxima compatibilidad/velocidad
+  "typescript.tsdk": "./node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  // Usa el servidor de sintaxis ligero cuando sea posible (acelera el autocompletado)
+  "typescript.tsserver.useSyntaxServer": "auto",
+  // Límite de memoria del servidor TS (en MB). Ajusta según tu RAM.
+  "typescript.tsserver.maxTsServerMemory": 4096,
+
+  // ====== RENDIMIENTO: Seguimiento de archivos (watcher) ======
+  // Excluir carpetas pesadas del watcher = MENOS uso de CPU y disco = VS Code más rápido
+  "files.watcherExclude": {
+    "**/.git/**": true,
+    "**/node_modules/**": true,
+    "**/.angular/**": true,
+    "**/out-tsc/**": true,
+    "**/dist/**": true,
+    "**/coverage/**": true,
+    "**/.vscode/**": true
+  },
+
+  // ====== RENDIMIENTO: Búsqueda ======
+  // Excluir carpetas pesadas de la búsqueda global (Ctrl+Shift+F)
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/.angular": true,
+    "**/out-tsc": true,
+    "**/dist": true,
+    "**/coverage": true,
+    "**/package-lock.json": true
+  },
+
+  // ====== RENDIMIENTO: Git ======
+  // Evita refrescos automáticos constantes de Git que consumen recursos
+  "git.autorefresh": false,
+  "git.autoRepositoryDetection": "openEditors",
+
+  // ====== AUTOCOMPLETADO: disparadores más eficientes ======
+  // Muestra sugerencias en comentarios y strings cuando sean útiles
+  "editor.quickSuggestions": {
+    "other": "on",
+    "comments": "off",
+    "strings": "off"
+  },
+  "editor.suggestOnTriggerCharacters": true,
+  "editor.acceptSuggestionOnCommitCharacter": true,
+  "editor.suggestSelection": "first",
+  "editor.snippetSuggestions": "top",
+  "editor.tabCompletion": "on",
+
+  // ====== RENDIMIENTO GENERAL DEL EDITOR ======
+  // Reduce el trabajo de renderizado al hacer scroll
+  "editor.smoothScrolling": false,
+  "editor.cursorSmoothCaretAnimation": "off",
+  // Obtener sugerencias mientras se escribe (más receptivo)
+  "editor.suggest.showWords": true,
+  "typescript.suggest.enabled": true,
+  "typescript.suggest.completeFunctionCalls": true,
+  "typescript.suggest.autoImports": true,
+  "typescript.suggest.paths": true,
+  "typescript.suggest.completeJSDocs": true,
+
+  // ====== ANGULAR LANGUAGE SERVICE ======
+  // Mejora el autocompletado de plantillas .html de Angular
+  "angular.enable-strict-mode-prompt": false,
+  "angular.experimental-ivy": true
+}

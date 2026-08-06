@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { DashboardComponent } from '../dashboard/dashboard';
+import { AuthService } from '../../services/auth';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +11,9 @@ import { DashboardComponent } from '../dashboard/dashboard';
 })
 export class LoginComponent {
   //Consructor para usar las rutas
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authService:AuthService){}
+
+
 
   // Variable para almacenar Correo
   email: string = '';
@@ -19,30 +21,25 @@ export class LoginComponent {
   // Variable para almacenar Contraseña
   password: string = '';
   
-  private readonly password_correcta: string = '123456'; // Contraseña correcta para ejemplo
-  private readonly email_correcto: string = 'sharith@gmail.com'; // Correo correcto para ejemplo
 
   // Método que será ejecutado al presionar el botón ingresar
+
   login():void{
-    if ( this.email=== this.email_correcto) {
-      console.log('Correo:', this.email);
-     
-
-      if(this.password === this.password_correcta){
-         console.log('Contraseña:', this.password);
-          alert('La contraseña es correcta.\n\n La contraseña ingresada fue: ' + this.password);
-          alert('el email es correcto.\n\n el email ingresado fue: ' + this.email);   
-         this.router.navigate(['/dashboard']);
-
-      }else{
-        alert('La contraseña no coincide. \n\n ' + ' El email ingresado fue: ' + this.password)
-      }
-     
-    }else{
-      alert('el email no coincide.\n\n el email ingresado fue: ' + this.email);
+    const autenticado = this.authService.iniciarSesion(this.email, this.password);
+    
+    if (!autenticado) {
+      alert('correo o contraseña incorrectos');
+      return;
     }
+
+    const usuario=this.authService.obtenerUsuario(); 
+    alert(`Bievenido ${usuario?.nombre}\n rol:${usuario?.rol}`);
+  
+    this.router.navigate(['/dashboard']);
   }
-    goToRegister(): void {
+
+  
+goToRegister(): void {
       this.router.navigate(['/register']);
     }
 }

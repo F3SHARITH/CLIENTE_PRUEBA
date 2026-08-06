@@ -6,6 +6,9 @@ import {RegisterComponent} from "./pages/register/register";
 import { DashboardComponent } from './pages/dashboard/dashboard';
 import {UsersComponent} from './pages/users/users';
 import { LayoutComponent } from './layout/layout/layout';
+import { Component } from '@angular/core';
+import { authGuard } from './guads/auth-guard';
+
 
 // definición de las rutas de la aplicación
 export const routes: Routes = [
@@ -13,8 +16,26 @@ export const routes: Routes = [
 
   {
     path: '',
-    redirectTo: '/login',
-    pathMatch: 'full',
+    component:LayoutComponent,
+    canActivate:[
+      authGuard
+    ],
+    children:[
+      {
+        path:'',
+        redirectTo:'dashboard',
+        pathMatch:'full'
+      },
+      {
+        path:'dashboard',
+        component:DashboardComponent
+      },
+      {
+        path:'users',
+        component:UsersComponent
+
+      }
+    ]
   },
 
   // ruta de componente login
@@ -29,22 +50,5 @@ export const routes: Routes = [
     component: RegisterComponent,
   },
 
-  //Ruta del componente Dashboard
-
-  {
-    path: 'dashboard',
-    component: DashboardComponent
-
-  },
-
-  //ruta para el componente de usuario
-  {
-    path: 'users',
-    component: UsersComponent
-  },
-  {
-    path: 'estructura',
-    component: LayoutComponent 
-  }
-
+  
 ];

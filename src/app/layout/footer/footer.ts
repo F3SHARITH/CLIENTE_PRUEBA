@@ -6,4 +6,10 @@ import { Component } from '@angular/core';
   templateUrl: './footer.html',
   styleUrl: './footer.css',
 })
-export class Footer {}
+export class FooterComponent {
+  nombreSistema: string = 'Sistema ADSO.'
+  institucion: string = ' Servicio Nacional de Aprendizaje - SENA '
+  version: string = '1.0.0'
+  anio: number = new Date().getFullYear();
+  desarrollador: string = 'Sharith Dayana Bermudez Ruiz'
+}
