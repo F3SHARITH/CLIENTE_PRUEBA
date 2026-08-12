@@ -16,19 +16,19 @@ export class AuthService {
     
     private usuariosSistema:UsuarioSistema[]=[
     {
-        nombre:'Administrador',
+        nombre:'ADMINISTRADOR',
         correo: 'admin@gmail.com',
         password: '123456',
         rol: 'Administrador'
     },
     {
-        nombre:'sharith bermudez',
+        nombre:'SHARITH BERMUDEZ',
         correo: 'sharith@gmail.com',
         password: '123456',
         rol: 'Aprendiz'
     },
     {
-        nombre:'daniel sua',
+        nombre:'DANIEL SUA',
         correo: 'dani@gmail.com',
         password: '123456',
         rol: 'Instructor'
@@ -62,7 +62,6 @@ export class AuthService {
     }
 
     localStorage.setItem(this.STORAGE_KEY, JSON.stringify(UsuarioAuth));
-    localStorage.setItem('usuarioLogeado', 'true');
     return true;
     }
 

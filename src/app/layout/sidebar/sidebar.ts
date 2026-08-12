@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
-
+import { AuthService } from '../../services/auth';
 interface MenuItem{
   icono:string;
   nombre:string;
@@ -15,8 +15,8 @@ interface MenuItem{
   styleUrl: './sidebar.css',
 })
 export class SidebarComponent {
-  constructor(){
-    this.rolUsuario=localStorage.getItem('rol')??'Aprendiz';
+  constructor(private authService: AuthService){
+    this.rolUsuario= this.authService.obtenerRol();
     this.cargarMenu();
   }
 
@@ -50,9 +50,20 @@ export class SidebarComponent {
 
     },
     {
-      icono:'📚',
-      nombre:'cursos',
-      ruta:'/cursos',
+      icono:'😁',
+      nombre:'componente dinamico',
+      ruta:'/contenido',
+      roles:[
+        'Administrador',
+        'Instructor',
+        'Aprendiz'
+      ]
+
+    },
+    {
+      icono:'🛩️',
+      nombre:'Material',
+      ruta:'/reservas',
       roles:[
         'Administrador',
         'Instructor',

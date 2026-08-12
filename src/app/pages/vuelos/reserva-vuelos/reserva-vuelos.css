@@ -1,0 +1,468 @@
+/* =========================================================
+
+..............................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................RESET GENERAL
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+
+/* =========================================================
+CONTENEDOR PRINCIPAL
+========================================================= */
+
+.reserva-container {
+    min-height: 100%;
+    padding: 30px;
+    background: #f1f5f9;
+}
+
+
+/* =========================================================
+ENCABEZADO DE LA PÁGINA
+========================================================= */
+
+.page-header {
+    margin-bottom: 30px;
+}
+
+.page-header h1 {
+    margin-bottom: 8px;
+    color: #0f172a;
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.page-header p {
+    color: #64748b;
+    font-size: 15px;
+}
+
+
+/* =========================================================
+CARD DE BÚSQUEDA
+========================================================= */
+
+.search-card {
+    width: 100%;
+    margin-bottom: 25px;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(15, 23, 42, 0.08);
+}
+
+
+/* =========================================================
+HEADER DE LA CARD
+========================================================= */
+
+.search-card mat-card-header {
+    padding-bottom: 15px;
+}
+
+.search-card mat-card-title {
+    color: #0f172a;
+    font-size: 21px;
+    font-weight: 600;
+}
+
+.search-card mat-card-subtitle {
+    margin-top: 5px;
+    color: #64748b;
+}
+
+
+/* =========================================================
+FORMULARIO DE BÚSQUEDA
+========================================================= */
+
+.search-form {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding-top: 10px;
+}
+
+
+/* =========================================================
+CAMPOS DEL FORMULARIO
+======================================================== */
+
+.form-field {
+    width: 100%;
+}
+
+
+/* =========================================================
+BOTONES DE LA CARD
+========================================================= */
+
+.card-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding: 20px 16px 10px;
+}
+
+
+/* =========================================================
+CARD DE CARGA
+========================================================= */
+
+.loading-card {
+    margin-bottom: 25px;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(15, 23, 42, 0.08);
+}
+
+.loading-content {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 10px 0 20px;
+}
+
+.loading-text h3 {
+    margin-bottom: 5px;
+    color: #0f172a;
+    font-size: 18px;
+}
+
+.loading-text p {
+    color: #64748b;
+    font-size: 14px;
+}
+
+
+/* =========================================================
+SECCIÓN DE RESULTADOS
+========================================================= */
+
+.results-section {
+    margin-bottom: 30px;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.section-header h2 {
+    margin-bottom: 5px;
+    color: #0f172a;
+    font-size: 22px;
+}
+
+.section-header p {
+    color: #64748b;
+    font-size: 14px;
+}
+
+.results-count {
+    padding: 8px 15px;
+    border-radius: 20px;
+    background: #dbeafe;
+    color: #1d4ed8;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+CARD DE LA TABLA
+========================================================= */
+
+.table-card {
+    width: 100%;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(15, 23, 42, 0.08);
+}
+
+
+/* =========================================================
+CONTENEDOR DE TABLA
+========================================================= */
+
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+}
+
+
+/* =========================================================
+TABLA
+========================================================= */
+
+.flights-table {
+    width: 100%;
+    min-width: 750px;
+}
+
+
+/* =========================================================
+ENCABEZADO DE TABLA
+========================================================= */
+
+.flights-table th {
+    background: #0f172a;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+CELDAS
+========================================================= */
+
+.flights-table td {
+    color: #334155;
+    font-size: 14px;
+}
+
+
+/* =========================================================
+FILAS
+========================================================= */
+
+.flights-table tr.mat-mdc-row {
+    transition: background 0.2s ease;
+}
+
+.flights-table tr.mat-mdc-row:hover {
+    background: #f8fafc;
+}
+
+
+/* =========================================================
+PRECIO
+========================================================= */
+
+.price {
+    color: #2563eb;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+SECCIÓN DE INFORMACIÓN
+========================================================= */
+
+.information-section {
+    margin-bottom: 30px;
+}
+
+.information-section mat-expansion-panel {
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(15, 23, 42, 0.08);
+}
+
+
+/* =========================================================
+CONTENIDO DEL EXPANSION PANEL
+========================================================= */
+
+.information-content {
+    padding: 10px 5px 15px;
+}
+
+.information-content h3 {
+    margin-top: 15px;
+    margin-bottom: 6px;
+    color: #0f172a;
+    font-size: 16px;
+}
+
+.information-content h3:first-child {
+    margin-top: 0;
+}
+
+.information-content p {
+    margin-bottom: 10px;
+    color: #64748b;
+    line-height: 1.6;
+    font-size: 14px;
+}
+
+
+/* =========================================================
+SECCIÓN DE PROGRESO
+========================================================= */
+
+.progress-section {
+    margin-bottom: 30px;
+}
+
+.progress-section mat-card {
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(15, 23, 42, 0.08);
+}
+
+.progress-section mat-card-title {
+    color: #0f172a;
+}
+
+.progress-section mat-card-subtitle {
+    color: #64748b;
+}
+
+
+/* =========================================================
+ENCABEZADO DEL PROGRESO
+========================================================= */
+
+.progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0 10px;
+    color: #475569;
+    font-size: 14px;
+}
+
+.progress-header strong {
+    color: #2563eb;
+}
+
+
+/* =========================================================
+BARRA DE PROGRESO
+========================================================= */
+
+.progress-section mat-progress-bar {
+    height: 8px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+
+/* =========================================================
+SECCIÓN DE BOTONES
+========================================================= */
+
+.buttons-section {
+    margin-bottom: 30px;
+    padding: 25px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(15, 23, 42, 0.08);
+}
+
+.buttons-section h2 {
+    margin-bottom: 20px;
+    color: #0f172a;
+    font-size: 20px;
+}
+
+
+/* =========================================================
+CONTENEDOR DE BOTONES
+========================================================= */
+
+.buttons-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+
+/* =========================================================
+BOTONES
+========================================================= */
+
+.buttons-container button {
+    min-width: 150px;
+}
+
+
+/* =========================================================
+RESPONSIVE - TABLETS
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .search-form {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+
+/* =========================================================
+RESPONSIVE - TABLETS PEQUEÑAS
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .reserva-container {
+        padding: 20px;
+    }
+
+    .page-header h1 {
+        font-size: 26px;
+    }
+
+    .search-form {
+        grid-template-columns: 1fr;
+    }
+
+    .section-header {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .card-actions {
+        justify-content: stretch;
+        flex-direction: column;
+    }
+
+    .card-actions button {
+        width: 100%;
+    }
+
+}
+
+
+/* =========================================================
+RESPONSIVE - CELULARES
+========================================================= */
+
+@media (max-width: 480px) {
+
+    .reserva-container {
+        padding: 15px;
+    }
+
+    .page-header h1 {
+        font-size: 23px;
+    }
+
+    .page-header p {
+        font-size: 13px;
+    }
+
+    .loading-content {
+        align-items: flex-start;
+    }
+
+    .buttons-section {
+        padding: 20px;
+    }
+
+    .buttons-container {
+        flex-direction: column;
+    }
+
+    .buttons-container button {
+        width: 100%;
+    }
+
+}

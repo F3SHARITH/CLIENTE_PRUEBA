@@ -6,8 +6,9 @@ import {RegisterComponent} from "./pages/register/register";
 import { DashboardComponent } from './pages/dashboard/dashboard';
 import {UsersComponent} from './pages/users/users';
 import { LayoutComponent } from './layout/layout/layout';
-import { Component } from '@angular/core';
 import { authGuard } from './guads/auth-guard';
+import { ContenidoDinamicoComponent } from './pages/contenido-dinamico/contenido-dinamico';
+import { ReservaVuelosComponent } from './pages/vuelos/reserva-vuelos/reserva-vuelos';
 
 
 // definición de las rutas de la aplicación
@@ -33,7 +34,14 @@ export const routes: Routes = [
       {
         path:'users',
         component:UsersComponent
-
+      },
+      {
+        path:'contenido',
+        component:ContenidoDinamicoComponent
+      },
+      {
+        path:'reservas',
+        component:ReservaVuelosComponent
       }
     ]
   },
@@ -49,6 +57,9 @@ export const routes: Routes = [
     path: 'register',
     component: RegisterComponent,
   },
+
+
+
 
   
 ];

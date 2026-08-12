@@ -1,0 +1,196 @@
+<div class="reserva-container">
+    <div class="page-header">
+        <h1> Reserva de vuelos </h1>
+        <p> Busca y reserva tu próximo vuelo </p>
+    </div>
+    <mat-card class="search-card">
+        <mat-card-header>
+            <mat-card-title> Buscar Vuelo </mat-card-title>
+            <mat-card-subtitle> Encuentra el vuelo que necesites </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <div class="search-form">
+                <mat-form-field appearance="outline" class="form-field">
+                    <mat-label> Origen </mat-label>
+                    <input matInput type="text" [(ngModel)]="origen" placeholder="Ejemplo: Bogotá">
+                </mat-form-field>
+                <mat-form-field type="text" appearance="outline" class="form-field">
+                    <mat-label> Destino </mat-label>
+                    <input matInput [(ngModel)]="destino" placeholder="Ejemplo: Yopal">
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="form-field">
+                    <mat-label> Fecha de Salida </mat-label>
+                    <input matInput [matDatepicker]="picker" [(ngModel)]="fechaSalida" placeholder="DD/MM/YY">
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"> </mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="form-field">
+                    <mat-label> Pasajeros </mat-label>
+                    <input matInput type="number" min="1" [(ngModel)]="pasajeros" placeholder="1">
+                </mat-form-field>
+            </div>
+        </mat-card-content>
+        <mat-card-actions align="end" class="card-actions">
+            <button mat-stroked-button type="button" (click)="limpiarBusqueda()"> Limpiar </button>
+            <button mat-raised-button color="primary" (click)="buscarVuelos()"> Buscar vuelos </button>
+        </mat-card-actions>
+    </mat-card>
+    <mat-card class="loading-card" *ngIf="cargando">
+        <mat-card-content>
+            <div class="loading-content">
+                <mat-progress-spinner mode="indeterminate" diameter="50"></mat-progress-spinner>
+                <div class="loading-text">
+                    <h3> Buscando vuelos </h3>
+                    <p> Estamos buscando las mejores opciones para ti. </p>
+                </div>
+            </div>
+            <mat-progress-bar mode="determinate" [value]="progreso">
+
+            </mat-progress-bar>
+        </mat-card-content>
+    </mat-card>
+    <section class="results-section">
+        <div class="section-header">
+            <div>
+                <h2>Vuelos disponibles</h2>
+                <p>seccione el vuelo qiue desea reservar</p>
+            </div>
+            <span class="resuls-count">
+                {{vuelos.length}} Vuelos
+            </span>
+        </div>
+        <mat-card class="table-card">
+            <mat-card-content>
+                <div class="table-container">
+                    <table mat-table [dataSource]="vuelos" class="flights-table">
+                        <ng-container matColumnDef="origen">
+                            <th mat-header-cell *matHeaderCellDef>
+                                Origen
+                            </th>
+                            <td mat-cell *matCellDef="let vuelo">
+                                <strong>{{vuelo.origen}}</strong>
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="destino">
+                            <th mat-header-cell *matHeaderCellDef>
+                                Destino
+                            </th>
+                            <td mat-cell *matCellDef="let vuelo">
+                                <strong>{{vuelo.destino}}</strong>
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="hora">
+                            <th mat-header-cell *matHeaderCellDef>
+                                hora
+                            </th>
+                            <td mat-cell *matCellDef="let vuelo">
+                                <strong>{{vuelo.hora}}</strong>
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="duracion">
+                            <th mat-header-cell *matHeaderCellDef>
+                                duracion
+                            </th>
+                            <td mat-cell *matCellDef="let vuelo">
+                                <strong>{{vuelo.duracion}}</strong>
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="precio">
+                            <th mat-header-cell *matHeaderCellDef>
+                                precio
+                            </th>
+                            <td mat-cell *matCellDef="let vuelo">
+                                <strong>{{vuelo.precio}}</strong>
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="accion">
+                            <th mat-header-cell *matHeaderCellDef>
+                                accion
+                            </th>
+                            <td mat-cell *matCellDef="let vuelo">
+                                <button mat-raised-button color="primary" type="button" (click)="reservar(vuelo)">
+                                    Reservar
+                                </button>
+                            </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="columnas">
+                        </tr>
+                        <tr mat-row *matRowDef="let row; columns:columnas">
+                        </tr>
+                    </table>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </section>
+    <section class="information-section">
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+
+                    Informacion Importante
+                </mat-panel-title>
+                <mat-panel-description>
+                    equipo, horarios y condiciones
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div class="informacion-content">
+                <h3>equipaje</h3>
+                <p>la tarifa basica incluye un articulo personal</p>
+                <h3>
+                    cambio y cancelaciones
+                </h3>
+                <p>las condiciones de acmbio y cancelacio es pegarle dos calbazos a maicol</p>
+            </div>
+        </mat-expansion-panel>
+    </section>
+
+    <section class="progress-section">
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>
+                    progreso de la reserva
+                </mat-card-title>
+                <mat-card-subtitle>
+                    estado actual del proseso
+                </mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                <div class="progress-header">
+                    <span>
+                        Procesamientpo
+                    </span>
+                    <strong>
+                        {{progreso}}%
+                    </strong>
+                </div>
+                <mat-progress-bar mode="determinate" [value]="progreso">
+
+                </mat-progress-bar>
+            </mat-card-content>
+        </mat-card>
+    </section>
+
+    <section class="buttons-section">
+        <h2>
+            botones angular meterial
+        </h2>
+        <div class="buttons-container">
+            <button matButton type="button">
+                boton basico
+            </button>
+            <button mat-stroked-button type="button">
+                boton outline
+            </button>
+
+            <button mat-raised-button color="primary" type="button">boton principal
+            </button>
+
+            <button mat-raised-button color="accent" type="button">
+                accion secundario
+            </button>
+        </div>
+    </section>
+
+
+</div>

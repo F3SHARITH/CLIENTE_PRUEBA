@@ -13,7 +13,7 @@
     overflow: hidden;
 }
 .layout-header{
-    height: 120px;
+    height: 90px;
     flex-shrink: 0;
 }
 .layout-main{

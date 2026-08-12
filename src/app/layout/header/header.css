@@ -75,7 +75,7 @@
 }
 
 .user-data h3{
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 600;
     margin-bottom: 3px;
 
@@ -84,7 +84,7 @@
 
 
 .user-data span{
-    color: #cbd5e1;
+    color: white;
     font-size: 14px;
     margin-bottom: 8px;
 
@@ -139,7 +139,7 @@
 @media(max-width:650px){
     .header{
         padding: 20px;
-         
+        
     }
 
     .sistem{

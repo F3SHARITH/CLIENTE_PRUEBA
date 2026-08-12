@@ -1,6 +1,8 @@
 import { Component, OnDestroy, OnInit, signal } from '@angular/core';
 import { DatePipe, WeekDay } from '@angular/common';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth';
+
 @Component({
   selector: 'app-header',
   imports: [],
@@ -8,7 +10,7 @@ import { Router } from '@angular/router';
   styleUrl: './header.css',
 })
 export class HeaderComponent implements OnInit, OnDestroy{
-  constructor (private Router:Router) {}
+  constructor (private Router:Router, private authService: AuthService) { }
   nombreSistema:String='sistema ADSO';
   descripcionSistema: string='plataforma academica para la gestion institucional'
   usuario: string ='';
@@ -20,7 +22,7 @@ export class HeaderComponent implements OnInit, OnDestroy{
   private intervalo:any;
 
   ngOnInit(): void {
-    this.usuario=localStorage.getItem('nombre')??'';
+    this.usuario=this.authService.obtenerNombre();
     this.rol=localStorage.getItem('rol')??'';
     this.actualizarFechaHora();
     this.intervalo= setInterval(()=>{
@@ -52,7 +54,7 @@ export class HeaderComponent implements OnInit, OnDestroy{
   }
 
   cerrarSesion():void{
-    localStorage.removeItem('usuarioLogeado');
+    this.authService.cerraSesion();
     this.Router.navigate(['/login']);
     alert('Aqui se cerro sesión');
   }
